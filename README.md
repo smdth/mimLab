@@ -1,1 +1,1 @@
-# mim_lab
+# mimLab
