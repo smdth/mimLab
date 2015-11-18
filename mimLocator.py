@@ -2,25 +2,25 @@
 
 import numpy
 
-mimLocP1 = numpy.array([0,0,0])
-mimLocP2 = numpy.array([2,0,0])
-mimLocP3 = numpy.array([0,0,2])
+p1 = numpy.array([0,0,0])
+p2 = numpy.array([2,0,0])
+p3 = numpy.array([0,0,2])
 
 def mimLocInit(x,y):
-    mimLocV12 = mimLocP2 - mimLocP1
-    mimLocV23 = mimLocP3 - mimLocP1
+    v12 = p2 - p1
+    v13 = p3 - p1
 
-    mimLocNormal = numpy.cross(mimLocV12, mimLocV23)
+    planeNormal = numpy.cross(v12, v13)
 
-    print mimLocV12, mimLocV23
+    print v12, v13
 
-    mimLocPlaneX = mimLocV12 / numpy.linalg.norm(mimLocV12)
-    mimLocPlaneY = mimLocV23 / numpy.linalg.norm(mimLocV23)
+    axisX = v12 / numpy.linalg.norm(v12)
+    axisY = v13 / numpy.linalg.norm(v13)
 
-    print numpy.linalg.norm(mimLocV12), numpy.linalg.norm(mimLocV23)
-    print mimLocPlaneX, mimLocPlaneY, mimLocNormal
+    print numpy.linalg.norm(v12), numpy.linalg.norm(v13)
+    print axisX, axisY, planeNormal
 
-    mimLocPoint = (x * mimLocPlaneX) + (y * mimLocPlaneY)
+    point = (x * axisX) + (y * axisY)
 
-    print mimLocPoint
+    print point
 
