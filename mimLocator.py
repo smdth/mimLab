@@ -2,25 +2,29 @@
 
 import numpy
 
-p1 = numpy.array([0,0,0])
-p2 = numpy.array([2,0,0])
-p3 = numpy.array([0,0,2])
+class Locator:
+    def __init__(self, p1, p2, p3):
 
-def mimLocInit(x,y):
-    v12 = p2 - p1
-    v13 = p3 - p1
+        # initialize points
+        self.p1 = numpy.array(p1)
+        self.p2 = numpy.array(p2)
+        self.p3 = numpy.array(p3)
 
-    planeNormal = numpy.cross(v12, v13)
+        # set vectors form p1 to p2 and from p1 to p3
+        self.v12 = self.p2 - self.p1
+        self.v13 = self.p3 - self.p1
 
-    print v12, v13
+        # calculate the normal to v12 and v13
+        self.planeNormal = numpy.cross(self.v12, self.v13)
 
-    axisX = v12 / numpy.linalg.norm(v12)
-    axisY = v13 / numpy.linalg.norm(v13)
+        # calculate corresponding axes of the plane, having p1 as base
+        self.axisX = self.v12 / numpy.linalg.norm(self.v12)
+        self.axisY = self.v13 / numpy.linalg.norm(self.v13)
 
-    print numpy.linalg.norm(v12), numpy.linalg.norm(v13)
-    print axisX, axisY, planeNormal
-
-    point = (x * axisX) + (y * axisY)
-
-    print point
+    def planeToCartesian(self, x, y):
+        """Takes a point (x,y) on the plane the Locator was initialized for and
+        transforms it into (x,y,z) coordinates located in cartesian space.
+        """
+        point = (x * self.axisX) + (y * self.axisY)
+        print point
 
