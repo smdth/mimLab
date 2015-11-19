@@ -15,11 +15,14 @@ class Locator:
         self.v13 = self.p3 - self.p1
 
         # calculate the normal to v12 and v13
-        self.planeNormal = numpy.cross(self.v12, self.v13)
+        self.n = numpy.cross(self.v12, self.v13)
 
         # calculate corresponding axes of the plane, having p1 as base
+        # axisX = v12 / |v12|
         self.axisX = self.v12 / numpy.linalg.norm(self.v12)
-        self.axisY = self.v13 / numpy.linalg.norm(self.v13)
+        # axisY = (v12 x n) / |v12 x n|
+        self.axisY = (numpy.cross(self.v12, self.n)) / \
+                            numpy.linalg.norm(numpy.cross(self.v12, self.n))
 
     def planeToCartesian(self, x, y):
         """Takes a point (x,y) on the plane the Locator was initialized for and
