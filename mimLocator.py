@@ -25,6 +25,6 @@ class Locator:
         """Takes a point (x,y) on the plane the Locator was initialized for and
         transforms it into (x,y,z) coordinates located in cartesian space.
         """
-        point = (x * self.axisX) + (y * self.axisY)
-        print point
+        p = (x * self.axisX) + (y * self.axisY)
+        return p
 
