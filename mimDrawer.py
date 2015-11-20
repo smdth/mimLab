@@ -2,9 +2,9 @@
 
 #import pylab
 #from pylab import *
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plot
+#import matplotlib
+#matplotlib.use('Agg')
+#import matplotlib.pyplot as plot
 import numpy
 
 def quartCircle(precision):
@@ -36,9 +36,9 @@ def scale(x, c):
     return x
 
 def drawLine(p1, p2, precision):
-    line = [ (1 - (float(1)/float(t))) * (p2 - p1) for t in range(precision + 1)]
-    print line
-    return line[0], line[1]
+    x = [ p1[0] + (1 - (float(t)/float(precision))) * (p2[0] - p1[0]) for t in range(precision + 1)]
+    y = [ p1[1] + (1 - (float(t)/float(precision))) * (p2[1] - p1[1]) for t in range(precision + 1)]
+    return x,y
 
 headX,headY = mirrorVert(*mirrorHor(*quartCircle(100)))
 headY = scale(headY, 1.5)
@@ -51,11 +51,11 @@ leftEyeY = shift(leftEyeY, 0.25)
 
 rightEyeX, rightEyeY = mirrorVert(leftEyeX, leftEyeY)
 
-lineX, lineY = drawLine(numpy.array([0,-1]), numpy.array([-1,-1]), 10)
+lineX, lineY = drawLine([0,-1], [-1,-1], 10)
 
 fullX = headX + leftEyeX + rightEyeX + lineX
 fullY = headY + leftEyeY + rightEyeY + lineY
 
-plot.scatter(fullX,fullY)
-plot.axis([-2,2,-2,2])
-plot.savefig('plot.png')
+#plot.scatter(fullX,fullY)
+#plot.axis([-2,2,-2,2])
+#plot.savefig('plot.png')
