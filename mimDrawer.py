@@ -36,8 +36,9 @@ def scale(x, c):
     return x
 
 def drawLine(p1, p2, precision):
-    x,y = [ (1 - t)(p2 - p1) for t in range(precision + 1)]
-    return x,y
+    line = [ (1 - (float(1)/float(t))) * (p2 - p1) for t in range(precision + 1)]
+    print line
+    return line[0], line[1]
 
 headX,headY = mirrorVert(*mirrorHor(*quartCircle(100)))
 headY = scale(headY, 1.5)
@@ -50,7 +51,7 @@ leftEyeY = shift(leftEyeY, 0.25)
 
 rightEyeX, rightEyeY = mirrorVert(leftEyeX, leftEyeY)
 
-lineX, lineY = drawLine(numpy.array[0,-1], numpy.array[-1,-1], 10)
+lineX, lineY = drawLine(numpy.array([0,-1]), numpy.array([-1,-1]), 10)
 
 fullX = headX + leftEyeX + rightEyeX + lineX
 fullY = headY + leftEyeY + rightEyeY + lineY
