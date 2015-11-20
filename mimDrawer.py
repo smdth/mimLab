@@ -1,30 +1,56 @@
 #!/usr/bin/env python2.7
 
 #import pylab
-from pylab import *
+#from pylab import *
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plot
 import numpy
 
-def circle(precision):
+def quartCircle(precision):
     unit = float(1) / float(precision)
 
-    x = [unit * i for i in range(precision)]
-    y = [numpy.sqrt(1 - (unit * i)**2) for i in range(precision)]
+    x = [unit * i for i in range(precision + 1)]
+    y = [numpy.sqrt(1 - (unit * i)**2) for i in range(precision + 1)]
     #x,y = [(unit * i, numpy.sqrt(1 - (unit * i)**2)) for i in range(precision)]
-
     return x,y
 
-x,y = circle(10)
+def mirrorHor(x,y):
+    x = x + x
+    yTemp = [ -i for i in y ]
+    y = y + yTemp
+    return x,y
 
-print x
-print y
+def mirrorVert(x,y):
+    xTemp = [ -i for i in x ]
+    x = x + xTemp
+    y = y + y
+    return x,y
 
-figure(1, figsize=(6,6))
-ax = axes([0.1, 0.1, 0.8, 0.8])
+def shift(x, c):
+    x = map(lambda n: n + c, x)
+    return x
 
-labels = 'Frogs', 'Hogs', 'Dogs', 'Logs'
-fracs = [15,30,45, 10]
+def scale(x, c):
+    x = map(lambda n: c * n, x)
+    return x
 
-explode=(0, 0.05, 0, 0)
-pie(fracs, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True)
-title('Raining Hogs and Dogs', bbox={'facecolor':'0.8', 'pad':5})
-savefig('foo.png')
+X,Y = mirrorVert(*mirrorHor(*quartCircle(100)))
+
+X = shift(X, 0.5)
+Y = scale(Y, 1.5)
+
+
+#x2 = [ -i for i in x]
+#y2 = [ -i for i in y]
+
+#x = x + x + x2 + x2
+#y = y + y2 + y + y2
+
+#x = map(lambda n: 0.5 * n, x)
+#y = map(lambda n: 1 + n, y)
+
+
+plot.scatter(X,Y)
+plot.axis([-2,2,-2,2])
+plot.savefig('plot.png')
