@@ -2,9 +2,9 @@
 
 #import pylab
 #from pylab import *
-#import matplotlib
-#matplotlib.use('Agg')
-#import matplotlib.pyplot as plot
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plot
 import numpy
 
 def quartCircle(precision):
@@ -51,11 +51,11 @@ leftEyeY = shift(leftEyeY, 0.25)
 
 rightEyeX, rightEyeY = mirrorVert(leftEyeX, leftEyeY)
 
-lineX, lineY = drawLine([0,-1], [-1,-1], 10)
+lineX, lineY = drawLine([-1,0], [-1,1], 10)
 
 fullX = headX + leftEyeX + rightEyeX + lineX
 fullY = headY + leftEyeY + rightEyeY + lineY
 
-#plot.scatter(fullX,fullY)
-#plot.axis([-2,2,-2,2])
-#plot.savefig('plot.png')
+plot.scatter(fullX,fullY)
+plot.axis([-2,2,-2,2])
+plot.savefig('plot.png')
