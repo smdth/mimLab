@@ -35,22 +35,20 @@ def scale(x, c):
     x = map(lambda n: c * n, x)
     return x
 
-X,Y = mirrorVert(*mirrorHor(*quartCircle(100)))
+headX,headY = mirrorVert(*mirrorHor(*quartCircle(100)))
+headY = scale(headY, 1.5)
 
-X = shift(X, 0.5)
-Y = scale(Y, 1.5)
+leftEyeX, leftEyeY = mirrorVert(*mirrorHor(*quartCircle(100)))
+leftEyeX = scale(leftEyeX, 0.25)
+leftEyeY = scale(leftEyeY, 0.25)
+leftEyeX = shift(leftEyeX, -0.35)
+leftEyeY = shift(leftEyeY, 0.25)
 
+rightEyeX, rightEyeY = mirrorVert(leftEyeX, leftEyeY)
 
-#x2 = [ -i for i in x]
-#y2 = [ -i for i in y]
+fullX = headX + leftEyeX + rightEyeX
+fullY = headY + leftEyeY + rightEyeY
 
-#x = x + x + x2 + x2
-#y = y + y2 + y + y2
-
-#x = map(lambda n: 0.5 * n, x)
-#y = map(lambda n: 1 + n, y)
-
-
-plot.scatter(X,Y)
+plot.scatter(fullX,fullY)
 plot.axis([-2,2,-2,2])
 plot.savefig('plot.png')
