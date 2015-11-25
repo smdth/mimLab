@@ -54,10 +54,12 @@ rightEyeX, rightEyeY = mirrorVert(leftEyeX, leftEyeY)
 
 lineX, lineY = tuple(map(operator.add, drawLine([-1,0], [-1.5,0.5], 10),
                         drawLine([-1.5,0.5], [-1,0.5], 10)))
-lineX, lineY = tuple(map(operator.add, (lineX,lineY),
+lineX, lineY = tuple(map(operator.add, (lineX, lineY),
                          drawLine([-1,0.5], [-1.4,1], 10)))
-                        #drawLine([-1.5,0.5], [-1,0.5], 10),
-                        #drawLine([-1.5,0.5], [-1,0.5], 10)))
+lineX, lineY = tuple(map(operator.add, (lineX, lineY),
+                        drawLine([-1.5,0.5], [-1,0.5], 10)))
+lineX, lineY = tuple(map(operator.add, (lineX, lineY),
+                        drawLine([-1.5,0.5], [-1,0.5], 10)))
 
 fullX = headX + leftEyeX + rightEyeX + lineX
 fullY = headY + leftEyeY + rightEyeY + lineY
