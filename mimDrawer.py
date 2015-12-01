@@ -13,7 +13,6 @@ def quartCircle(precision):
 
     x = [unit * i for i in range(precision + 1)]
     y = [numpy.sqrt(1 - (unit * i)**2) for i in range(precision + 1)]
-    #x,y = [(unit * i, numpy.sqrt(1 - (unit * i)**2)) for i in range(precision)]
     return x,y
 
 def mirrorHor(x,y):
@@ -37,8 +36,10 @@ def scale(x, c):
     return x
 
 def drawLine(p1, p2, precision):
-    x = [ p1[0] + (1 - (float(t)/float(precision))) * (p2[0] - p1[0]) for t in range(precision + 1)]
-    y = [ p1[1] + (1 - (float(t)/float(precision))) * (p2[1] - p1[1]) for t in range(precision + 1)]
+    x = [ p1[0] + (1 - (float(t)/float(precision))) * (p2[0] - p1[0]) for t in
+         range(precision + 1)]
+    y = [ p1[1] + (1 - (float(t)/float(precision))) * (p2[1] - p1[1]) for t in
+         range(precision + 1)]
     return x,y
 
 def lineAppend(l, p1, p2, precision):
