@@ -4,7 +4,7 @@
 #from pylab import *
 #import matplotlib
 #matplotlib.use('Agg')
-import matplotlib.pyplot as plot
+import matplotlib.pyplot as plt
 import numpy
 import operator
 
@@ -119,15 +119,29 @@ detail4 = drawPath([[0.35, 0.6], [0.35, 0.5], [0.3, 0.55], [0.4, 0.55]], 10)
 #fullY = headY + leftEyeY + rightEyeY + lineY
 
 #plot.scatter(fullX,fullY)
-plot.plot(*head)
-plot.plot(*leftEye)
-plot.plot(*rightEye)
-plot.plot(*mouth)
-plot.plot(*detail1)
-plot.plot(*detail2)
-plot.plot(*detail3)
-plot.plot(*detail4)
-plot.axis([-4,4,-4,4])
-plot.axes().set_aspect('equal', 'datalim')
+headZeros = []
+for i in head[0]:
+    headZeros.append(0)
+
+
+import matplotlib as mpl
+from mpl_toolkits.mplot3d import Axes3D
+
+mpl.rcParams['legend.fontsize'] = 10
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+ax.plot(head[0], headZeros, head[1], label='asdf')
+ax.legend()
+
+#plt.plot(*head)
+#plt.plot(*leftEye)
+#plt.plot(*rightEye)
+#plt.plot(*mouth)
+#plt.plot(*detail1)
+#plt.plot(*detail2)
+#plt.plot(*detail3)
+#plt.plot(*detail4)
+#plt.axis([-4,4,-4,4, -4,4])
+#plt.axes().set_aspect('equal', 'datalim')
 #plot.savefig('plot.png')
-plot.show()
+plt.show()
