@@ -120,29 +120,29 @@ detail4 = drawPath([[0.35, 0.6], [0.35, 0.5], [0.3, 0.55], [0.4, 0.55]], 10)
 #fullY = headY + leftEyeY + rightEyeY + lineY
 
 #plot.scatter(fullX,fullY)
-headZeros = []
-for i in head[0]:
-    headZeros.append(0)
+#headZeros = []
+#for i in head[0]:
+#    headZeros.append(0)
 
 
-import matplotlib as mpl
-from mpl_toolkits.mplot3d import Axes3D
+#import matplotlib as mpl
+#from mpl_toolkits.mplot3d import Axes3D
 
-mpl.rcParams['legend.fontsize'] = 10
-fig = plt.figure()
-ax = fig.gca(projection='3d')
-ax.plot(head[0], headZeros, head[1], label='asdf')
-ax.legend()
+#mpl.rcParams['legend.fontsize'] = 10
+#fig = plt.figure()
+#ax = fig.gca(projection='3d')
+#ax.plot(head[0], headZeros, head[1], label='asdf')
+#ax.legend()
 
-#plt.plot(*head)
-#plt.plot(*leftEye)
-#plt.plot(*rightEye)
-#plt.plot(*mouth)
-#plt.plot(*detail1)
-#plt.plot(*detail2)
-#plt.plot(*detail3)
-#plt.plot(*detail4)
-#plt.axis([-4,4,-4,4, -4,4])
-#plt.axes().set_aspect('equal', 'datalim')
+plt.scatter(*head)
+plt.scatter(*leftEye)
+plt.scatter(*rightEye)
+plt.scatter(*mouth)
+plt.scatter(*detail1)
+plt.scatter(*detail2)
+plt.scatter(*detail3)
+plt.scatter(*detail4)
+plt.axis([-4,4,-4,4])
+plt.axes().set_aspect('equal', 'datalim')
 #plot.savefig('plot.png')
 plt.show()
