@@ -27,7 +27,15 @@ class Locator:
         self.axisY = np.cross(self.n, self.axisX)
         self.axisY = self.axisY / np.linalg.norm(self.axisY)
 
-        #self.rot = np.matrix(self.axisX, self.axisY, self.n)
+        self.rot = np.matrix([np.array(self.axisX), np.array(self.axisY),
+                              np.array(self.n)])
+
+        self.q = [ 0,0,0,0 ]
+        self.q[3] = np.sqrt(1 + self.rot[0,0] + self.rot[1,1] + self.rot[2,2]) \
+                / 2
+        self.q[0] = (self.rot[2,1] - self.rot[1,2]) / (4 * self.q[3])
+        self.q[1] = (self.rot[0,2] - self.rot[2,0]) / (4 * self.q[3])
+        self.q[2] = (self.rot[1,0] - self.rot[0,1]) / (4 * self.q[3])
 
     def planeToCartesian(self, x, y):
         """Takes a point (x,y) on the plane the Locator was initialized for and
