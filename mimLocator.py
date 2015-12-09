@@ -1,6 +1,7 @@
 #!/usr/bin/env python2.7
 
 import numpy as np
+import sys
 
 class Locator:
     def __init__(self, p1, p2, p3):
@@ -14,6 +15,7 @@ class Locator:
         self.v12 = self.p2 - self.p1
         self.v13 = self.p3 - self.p1
 
+	self.v12 = self.v12 / np.linalg.norm(self.v12)
         # calculate the normal to v12 and v13
         self.n = np.cross(self.v12, self.v13)
         self.n = self.n / np.linalg.norm(self.n)
@@ -21,11 +23,8 @@ class Locator:
         # calculate corresponding axes of the plane, having p1 as base
         # axisX = v12 / |v12|
         self.axisX = self.v12 / np.linalg.norm(self.v12)
-        # axisY = (v12 x n) / |v12 x n|
-#        self.axisY = (np.cross(self.v12, self.n)) / \
-#                            np.linalg.norm(np.cross(self.v12, self.n))
         self.axisY = np.cross(self.n, self.axisX)
-        self.axisY = self.axisY / np.linalg.norm(self.axisY)
+        #self.axisY = self.axisY / np.linalg.norm(self.axisY)
 
         self.rot = np.matrix([np.array(self.axisX), np.array(self.axisY),
                               np.array(self.n)])
@@ -41,6 +40,12 @@ class Locator:
         """Takes a point (x,y) on the plane the Locator was initialized for and
         transforms it into (x,y,z) coordinates located in cartesian space.
         """
-        p = (x * self.axisX) + (y * self.axisY)
+        p = self.p1 + (x * 0.1 * self.axisX) + (y * 0.1 * self.axisY)
         return p
 
+def main():
+    l = Locator([float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3])], [float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6])], [float(sys.argv[7]), float(sys.argv[8]), float(sys.argv[9])])
+    print l.planeToCartesian(sys.argv[10], sys.argv[11])
+
+if __name__ == '__main__':
+    main()

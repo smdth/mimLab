@@ -46,22 +46,32 @@ inputting = True
 
 o = [1,0,0,0]
 
-if len(sys.argv) == 8:
+if len(sys.argv) > 1:
     px = sys.argv[1]
     py = sys.argv[2]
     pz = sys.argv[3]
-    o[0] = sys.argv[4]
-    o[1] = sys.argv[5]
-    o[2] = sys.argv[6]
-    o[3] = sys.argv[7]
 else:
-    px = 1   # x coordinate
-    py = 1   # y coordinate
-    pz = 1   # z coordinate
-    o[0] = 1 # orientation quaternion x coordinate
-    o[1] = 1 # orientation quaternion y coordinate
-    o[2] = 1 # orientation quaternion z coordinate
-    o[3] = 1 # orientation quaternion w coordinate
+
+    px = 0.704303194185
+    py = -0.0689719359237
+#    pz = 0.0323706170901
+
+    px = 0.52
+    py = 0
+    pz = 0.4
+    #pz = 0.5
+    px,py,pz = 0.75711104, -0.169506  ,  0.11665723
+
+o[0] = 0.75989153540926047
+o[1] = 0.56884166656018065
+o[2] = 0.024265470161950277
+o[3] = 0.31368009142470676
+    #o[3] = [0.024265470161950277, 0.31368009142470676, 0.75989153540926047, 0.56884166656018065]
+#    o[0] = 0.8123874156885869
+#    o[1] = 0.4683948692594124
+#    o[2] = 0.02062197493607546
+#    o[3] = 0.3467097740647253
+
 # WARNING: there is more code to be inserted later on
 #####################
 

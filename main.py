@@ -6,27 +6,14 @@ from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
 # custom imports
-import mimLocator
-#import mimDrawer
+from mimLocator import *
+import mimDrawer
 
 def main():
-    p1 = [1,1,1]
-    p2 = [0,2.5,0]
-    p3 = [3,3,-0.5]
 
-
-    mpl.rcParams['legend.fontsize'] = 10
-    fig = plt.figure()
-    ax = fig.gca(projection='3d')
-    p1 = [[1],[1],[1]]
-    p2 = [[0,3],[2.5,3],[0,-0.5]]
-    p3 = [[3],[3],[-0.5]]
-    p2[0], p2[1] = np.meshgrid(p2[0],p2[1])
-    ax.plot(*p1, label='asd', marker='o')
-    ax.plot(*p2, label='asd', marker='o')
-    ax.plot(*p3, label='asd', marker='o')
-    ax.legend()
-    plt.show()
+    l = Locator([0.704303194185, -0.0689719359237, 0.0323706170901],[0.652674084377, -0.193660960182, 0.0901786136888],[0.839161903371, -0.0809407755815, 0.0937020338332])
+    #print l.planeToCartesian(1,1)
+    print l.planeToCartesian(float(sys.argv[1]), float(sys.argv[2]))
 
 if __name__ == '__main__':
     main()
