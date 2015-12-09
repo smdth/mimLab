@@ -65,7 +65,6 @@ class Drawer:
                          np.linalg.norm(np.array(p1) - np.array(p3))) / 5
         self.shiftX = 1
         self.shiftY = 1
-        print self.scale
 
     def normalize(self, x, y):
         x = scale(x, self.scale)
@@ -183,7 +182,7 @@ def main():
     plt.plot(*d.drawNose2())
     plt.axis([0,5,0,5])
     plt.axes().set_aspect('equal', 'datalim')
-    #plot.savefig('plot.png')
+    plt.savefig('plot.png')
     plt.show()
 
 if __name__ == '__main__':
