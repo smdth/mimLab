@@ -1,0 +1,22 @@
+MIM tutorial: inverse kinematics.
+Chosen pose:
+header: 
+  seq: 0
+  stamp: 
+    secs: 1449677537
+    nsecs: 968189954
+  frame_id: base
+pose: 
+  position: 
+    x: 0.76593192
+    y: -0.26223767
+    z: 0.17848788
+  orientation: 
+    x: 0.759891535409
+    y: 0.56884166656
+    z: 0.024265470162
+    w: 0.313680091425
+Success - Valid Joint Solution Found:
+Moving Joints to Solution
+Joint angles:
+{'left_w0': 2.4188367464009777, 'left_w1': 1.3335757236051533, 'left_w2': 0.8628679439470391, 'left_e0': -2.2835042234829044, 'left_e1': 1.2103275504266424, 'left_s0': -0.9070412662936567, 'left_s1': 0.4752818983536645}

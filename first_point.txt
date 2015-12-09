@@ -1,0 +1,5 @@
+MIM tutorial: forward kinematics.
+Endpoint coordinates:
+X: 0.704303194185
+Y: -0.0689719359237
+Z: 0.0323706170901
