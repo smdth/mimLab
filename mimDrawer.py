@@ -4,7 +4,7 @@
 #from pylab import *
 #import matplotlib
 #matplotlib.use('Agg')
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import numpy as np
 import operator
 
@@ -69,8 +69,8 @@ class Drawer:
     def normalize(self, x, y):
         x = scale(x, self.scale)
         y = scale(y, self.scale)
-        x = shift(x, self.shiftX)
-        y = shift(y, self.shiftY)
+        #x = shift(x, self.shiftX)
+        #y = shift(y, self.shiftY)
         return x,y
 
 
