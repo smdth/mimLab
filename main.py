@@ -17,7 +17,7 @@ def main():
     scriptsPopen.wait()
     firstCoord = scriptsPopen.stdout.read().strip()
 
-    x = input("Get first coordinate?: ")
+    y = input("Get first coordinate?: ")
 
     scriptsPopen = subprocess.Popen(["python", "forward_kinematics.py"],
                                     stdout=subprocess.PIPE)
@@ -25,12 +25,46 @@ def main():
     secondCoord = scriptsPopen.stdout.read().strip()
 
 
-    x = input("Get first coordinate?: ")
+    z = input("Get first coordinate?: ")
 
     scriptsPopen = subprocess.Popen(["python", "forward_kinematics.py"],
                                     stdout=subprocess.PIPE)
     scriptsPopen.wait()
     thirdCoord = scriptsPopen.stdout.read().strip()
+
+    for l in firstCoord:
+        if "X" in l:
+            x = float(l.split(" ")[-1])
+        if "Y" in l:
+            y = float(l.split(" ")[-1])
+        if "Z" in l:
+            z = float(l.split(" ")[-1])
+
+    firstCoord = [x,z,y]
+
+
+    for l in secondCoord:
+        if "X" in l:
+            x = float(l.split(" ")[-1])
+        if "Y" in l:
+            y = float(l.split(" ")[-1])
+        if "Z" in l:
+            z = float(l.split(" ")[-1])
+
+    secondCoord = [x,z,y]
+
+
+    for l in thirdCoord:
+        if "X" in l:
+            x = float(l.split(" ")[-1])
+        if "Y" in l:
+            y = float(l.split(" ")[-1])
+        if "Z" in l:
+            z = float(l.split(" ")[-1])
+
+    thirdCoord = [x,z,y]
+
+    print firstCoord, secondCoord, thirdCoord
 
     l = Locator(firstCoord, secondCoord, thirdCoord)
 
