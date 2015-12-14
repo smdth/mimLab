@@ -36,11 +36,13 @@ class Locator:
         self.q[1] = (self.rot[0,2] - self.rot[2,0]) / (4 * self.q[3])
         self.q[2] = (self.rot[1,0] - self.rot[0,1]) / (4 * self.q[3])
 
+	self.scale = np.linalg.norm(self.p2 - self.p1)
+
     def planeToCartesian(self, x, y):
         """Takes a point (x,y) on the plane the Locator was initialized for and
         transforms it into (x,y,z) coordinates located in cartesian space.
         """
-        p = self.p1 + (x * 0.1 * self.axisX) + (y * 0.1 * self.axisY)
+        p = self.p1 + (x * self.scale * self.axisX) + (y * self.scale * self.axisY)
         return p
 
 def main():

@@ -47,13 +47,13 @@ inputting = True
 o = [1,0,0,0]
 
 if len(sys.argv) > 1:
-    px = sys.argv[1]
-    py = sys.argv[2]
-    pz = sys.argv[3]
-    o[0] = sys.argv[4]
-    o[1] = sys.argv[5]
-    o[2] = sys.argv[6]
-    o[3] = sys.argv[7]
+    px = float(sys.argv[1])
+    py = float(sys.argv[2])
+    pz = float(sys.argv[3])
+    o[0] = float(sys.argv[4])
+    o[1] = float(sys.argv[5])
+    o[2] = float(sys.argv[6])
+    o[3] = float(sys.argv[7])
  
 else:
 
@@ -71,11 +71,11 @@ else:
     o[1] = 0.56884166656018065
     o[2] = 0.024265470161950277
     o[3] = 0.31368009142470676
-    #o[3] = [0.024265470161950277, 0.31368009142470676, 0.75989153540926047, 0.56884166656018065]
-#    o[0] = 0.8123874156885869
-#    o[1] = 0.4683948692594124
-#    o[2] = 0.02062197493607546
-#    o[3] = 0.3467097740647253
+
+o[0] = 0.5542362640543768
+o[1] = 0.7726765881903739
+o[2] = -0.038663192759965555
+o[3] = 0.30708013806681805
 
 # WARNING: there is more code to be inserted later on
 #####################

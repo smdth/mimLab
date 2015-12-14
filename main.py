@@ -6,10 +6,11 @@ import sys
 
 # custom imports
 from mimLocator import *
-import mimDrawer
+from mimDrawer import *
 
 def main():
 
+    x,y,z = 0,0,0
     x = input("Get first coordinate?: ")
 
     scriptsPopen = subprocess.Popen(["python", "forward_kinematics.py"],
@@ -17,7 +18,7 @@ def main():
     scriptsPopen.wait()
     firstCoord = scriptsPopen.stdout.read().strip()
 
-    y = input("Get first coordinate?: ")
+    y = input("Get second coordinate?: ")
 
     scriptsPopen = subprocess.Popen(["python", "forward_kinematics.py"],
                                     stdout=subprocess.PIPE)
@@ -25,14 +26,14 @@ def main():
     secondCoord = scriptsPopen.stdout.read().strip()
 
 
-    z = input("Get first coordinate?: ")
+    z = input("Get third coordinate?: ")
 
     scriptsPopen = subprocess.Popen(["python", "forward_kinematics.py"],
                                     stdout=subprocess.PIPE)
     scriptsPopen.wait()
     thirdCoord = scriptsPopen.stdout.read().strip()
 
-    for l in firstCoord:
+    for l in firstCoord.split("\n"):
         if "X" in l:
             x = float(l.split(" ")[-1])
         if "Y" in l:
@@ -43,7 +44,7 @@ def main():
     firstCoord = [x,z,y]
 
 
-    for l in secondCoord:
+    for l in secondCoord.split("\n"):
         if "X" in l:
             x = float(l.split(" ")[-1])
         if "Y" in l:
@@ -54,7 +55,7 @@ def main():
     secondCoord = [x,z,y]
 
 
-    for l in thirdCoord:
+    for l in thirdCoord.split("\n"):
         if "X" in l:
             x = float(l.split(" ")[-1])
         if "Y" in l:
@@ -65,18 +66,21 @@ def main():
     thirdCoord = [x,z,y]
 
     print firstCoord, secondCoord, thirdCoord
+   # firstCoord = [0.623791890947, -0.012931432131, -0.0246224299732]
+   # secondCoord = [0.744245444214, 0.0430351361199, -0.00974796572852]
+   # thirdCoord = [0.631311941661, 0.0576380496228, -0.146248721335]
 
     l = Locator(firstCoord, secondCoord, thirdCoord)
 
-    m = mimDrawer(firstCoord, secondCoord, thirdCoord)
+    m = Drawer(firstCoord, secondCoord, thirdCoord)
 
-    path = m.drawPath([[0,0],[1,0]])
+    path = scale(quartCircle(10)[0], 0.1), scale(quartCircle(10)[1], 0.1)
 
-    for p in path:
-        tp = l.planeToCartesian(*p)
-        scriptsPopen = subprocess.Popen(["python",
-                                         "inverse_kinematics.py", tp[0],
-                                         tp[1], tp[2], *l.q)
+    for i in range(len(path[0])):
+        tp = l.planeToCartesian(path[0][i], path[1][i])
+	print tp
+        scriptsPopen = subprocess.Popen(["python", "inverse_kinematics.py", str(tp[0]), str(tp[1]), str(tp[2]), str(l.q[0]), str(l.q[1]), str(l.q[2]), str(l.q[3])])
+	scriptsPopen.wait()
 
 
     #l = Locator([0.704303194185, -0.0689719359237, 0.0323706170901],[0.652674084377, -0.193660960182, 0.0901786136888],[0.839161903371, -0.0809407755815, 0.0937020338332])
