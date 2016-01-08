@@ -1,0 +1,459 @@
+\documentclass[10pt,a4paper]{scrartcl}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\usepackage[usenames,dvipsnames]{color}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={Joe O'Grady, Thomas Schmidt},
+            pdftitle={Machines in Motion Lab Report},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{listings}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+\title{Machines in Motion Lab Report}
+\author{Joe O'Grady, Thomas Schmidt}
+\newcommand\thedeadline{2016-01-11}
+\date{\today}
+%%% Special LaTeX headers
+%
+% Remove and edit as desired. Simply serves as an example.
+% Here, reduce excessive use of whitespace a little bit.
+
+\usepackage{lastpage}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{pifont}
+\usepackage{mathrsfs}
+\usepackage{bbm}
+\usepackage{stmaryrd}
+\usepackage{wasysym}
+\usepackage{tikz}
+\usetikzlibrary{shapes, positioning, arrows, automata, fit}
+%\usepackage{wrapfig}
+
+% loop instead of for
+%\SetKwFor{For}{\textbf{loop}}{do}{end loop}
+
+\setlength{\parindent} {0pt}
+\setlength{\parskip}{0.5ex}
+
+\usepackage{charter}
+\usepackage[bitstream-charter]{mathdesign}
+%\usepackage{fancyhdr, hyperref, titlesec, blindtext, color}
+\usepackage{fancyhdr, hyperref, titlesec, color}
+\hypersetup{hidelinks, linktoc=all}
+
+\usepackage{xcolor}
+
+
+\lstset{
+    basicstyle=\ttfamily,
+    numbers=left,
+    keywordstyle=\color[rgb]{0.13,0.29,0.53}\bfseries,
+    stringstyle=\color[rgb]{0.31,0.60,0.02},
+    commentstyle=\color[rgb]{0.56,0.35,0.01}\itshape,
+    numberstyle=\footnotesize,
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color[RGB]{248,248,248},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=true,
+    breakautoindent=true,
+    escapeinside={\%*}{*)},
+    linewidth=40em,
+    basewidth=0.5em,
+}
+
+\newcounter{points}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+\titleformat{\section}[hang]{\fontfamily{qhv}}{\fontfamily{qhv}\bfseries\thesection\hsp\textcolor{gray75}{$\vert$}\hsp}{0pt}{\Large\bfseries}
+
+\newcommand{\uebkopfzeile}[4]{
+	\begin{center}
+		\begin{bf}
+			\usefont{T1}{qhv}{b}{n}
+			#1 \hfill #2\\
+			#3 \hfill #4\\
+		\end{bf}
+	\end{center}  
+}
+
+\newcommand{\uebtitel}[2]{
+	\begin{center}
+		\begin{bf}
+			\usefont{T1}{qhv}{b}{n}
+			\bigskip
+			{\LARGE #1}\\
+		\end{bf}
+		\textit{\rmfamily(Deadline: #2)}
+	\end{center}
+}
+
+\makeatletter
+\newcommand{\solution}{\@ifstar{\uebungsblatt@zsolution}{\uebungsblatt@solution}}
+\newcommand{\uebungsblatt@zsolution}[3]{%
+	\begin{center}
+		\begin{bf}
+			#1: {\it #2}\hfill [ \quad ] of #3 Points\\
+		\end{bf}
+	\end{center}
+}
+\newcommand{\uebungsblatt@solution}[3]{\begin{center}
+		\begin{bf}
+			{\usefont{T1}{qhv}{b}{n}Solution of Exercise #1:} 
+			\parbox[t]{,4\textwidth}{{\it #2}}\hfill{\usefont{T1}{qhv}{b}{n} [ 
+				\quad ] of #3 Points}\\
+		\end{bf}
+	\end{center}
+	\addtocounter{points}{#3}
+}
+\makeatother
+
+% sets
+\newcommand*{\F}{\mathbb F}
+\newcommand*{\N}{\mathbb N}
+\newcommand*{\Z}{\mathbb Z}
+\newcommand*{\Q}{\mathbb Q}
+\newcommand*{\R}{\mathbb R}
+\renewcommand*{\C}{\mathbb C}
+\newcommand*{\Pow}{\mathcal P}
+\newcommand*{\K}{\mathbb K}
+
+% operators
+\newcommand*{\et}{\mathbin{\&}}
+\DeclareMathOperator{\com}{com}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\rp}{Re}
+\DeclareMathOperator{\ip}{Im}
+\DeclareMathOperator{\lin}{span}
+\DeclareMathOperator{\row}{row}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\ve}{vec}
+%\DeclareMathOperator{\co}{coord}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\sgn}{sgn}
+%\DeclareMathOperator{\det}{det}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Eig}{Eig}
+\DeclareMathOperator{\Abb}{Abb}
+\DeclareMathOperator{\Bil}{Bil}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\ord}{ord}
+
+\renewcommand\over[2]{\genfrac{}{}{0pt}{}{#1}{#2}}
+
+% symbols
+\renewcommand{\i}{\mathring{\imath}}
+\renewcommand{\j}{\mathring{\jmath}}
+\newcommand*{\ph}{\varphi}
+\newcommand*{\ps}{\psi}
+\newcommand*{\la}{\lambda}
+\newcommand*{\e}{\varepsilon}
+\renewcommand*{\a}{\alpha}
+\renewcommand*{\b}{\beta}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\rh}{\varrho}
+\newcommand{\de}{\delta}
+\newcommand{\Ph}{\Phi}
+\newcommand{\ze}{\zeta}
+\newcommand{\ch}{\chi}
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\idleq}{\trianglelefteq}
+
+\newcommand*{\skal}[1]{\left\langle #1\right\rangle}
+
+% changes \qed to a filled square
+\renewcommand*{\qedsymbol}{\ensuremath{\blacksquare}}
+% set mathcal as it is vanilla, I like it more like that than the rsf thingy
+\SetMathAlphabet{\mathcal}{normal}{OMS}{cmsy}{m}{bf}
+
+% strucutres
+\makeatletter
+\renewcommand*{\vec}{\@ifstar{\cscallr@ovec}{\cscallr@uvec}}
+\newcommand*{\cscallr@ovec}[1]{\overrightarrow{#1}}
+\newcommand*{\cscallr@uvec}[1]{\text{vec}_{\underline{#1}}}
+\makeatother
+\newcommand*{\coord}[1]{\text{coord}_{\underline{#1}}}
+\newcommand*\otilde[1]{\widetilde{#1}}
+\renewcommand*{\o}[1]{\overline{#1}}
+\makeatletter
+% \vor for short form, \vor* for long form
+\newcommand*{\vor}{\@ifstar{\cscallr@lvor}{\cscallr@svor}}
+\newcommand*{\cscallr@svor}{\textbf{Vor.:} }
+\newcommand*{\cscallr@lvor}{\textbf{Voraussetzung:} }
+% \beh, see \vor
+\newcommand*{\beh}{\@ifstar{\cscallr@lbeh}{\cscallr@sbeh}}
+\newcommand*{\cscallr@sbeh}{\textbf{Beh.:} }
+\newcommand*{\cscallr@lbeh}{\textbf{Behauptung:} }
+% \bew, see \vor	
+\newcommand*{\bew}{\@ifstar{\cscallr@lbew}{\cscallr@sbew}}
+\newcommand*{\cscallr@sbew}{\textit{Bew.:} }
+\newcommand*{\cscallr@lbew}{\textit{Beweis:} }
+\makeatother
+
+\newcommand*{\zz}{Zu zeigen: }
+\makeatletter
+\newcommand{\arr}{\@ifstar{\cscallr@larr}{\cscallr@arr}}
+\newcommand\cscallr@larr[1]{\left\{\begin{array}{c} #1 \end{array}\right.}
+\newcommand\cscallr@arr[1]{\left\{\begin{array}{c} #1 \end{array}\right\}}
+\makeatother
+\renewcommand*\u[1]{\underset{#1}}
+\newcommand\lr[1]{\left\{ #1 \right\}}
+%#1.2 ?
+% links to \label{key}
+\newcommand*\rref[1]{[$\rightarrow$\hyperref[#1]{#1}]} % with brackets
+\newcommand*\bref[2]{[$\rightarrow$\hyperref[#1]{#1},$\rightarrow$\hyperref[#2]{#2}]}
+% dual, with brackets
+\newcommand*\hrref[1]{\hyperref[#1]{#1}} % without brackets, for refs to (a)
+%for example
+% for normal column vectors use cvec, for small ones (preferably in text) use
+%cvec*
+\makeatletter
+\newcommand{\cvec}{\@ifstar{\cscallr@scvec}{\cscallr@cvec}}
+\newcommand{\cscallr@scvec}[1]{%
+	\text{$\left(\begin{smallmatrix}#1\end{smallmatrix}\right)$}
+}
+\newcommand{\cscallr@cvec}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\makeatother
+\newcommand{\dvec}[1]{\begin{vmatrix}#1\end{vmatrix}}
+\newcommand{\vvec}[2]{ \left(\begin{array}{#1}#2\end{array}\right) }
+\newcommand*{\smallfrac}[2]{\frac{_{#1}}{^{#2}}}
+\newcommand{\bvec}[1]{\begin{bmatrix}#1\end{bmatrix}}
+
+\fancyhead[R]{Page: \thepage \hspace{0.5ex} of \pageref{LastPage}}
+\fancyhead[L]{Joe O'Grady, Thomas Schmidt}
+
+\fancypagestyle{firststyle}
+{
+   \fancyhf{}
+\fancyhead[R]{Page: \thepage \hspace{0.5ex} of \pageref{LastPage}}
+\fancyhead[L]{Joe O'Grady, Thomas Schmidt}
+}
+%Kopfzeile auf jeder Seite mit eurem Namen und Seitenzahl
+
+\thispagestyle{firststyle}
+
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\begin{document}
+\begin{center}
+	\begin{bf}
+		\usefont{T1}{qhv}{b}{n}
+		\bigskip
+		{\LARGE Machines in Motion Lab Report}\\
+	\end{bf}
+	\textit{\rmfamily(Deadline: 2016-01-11)}
+\end{center}
+
+\section{Before the lab}\label{before-the-lab}
+
+\subsection{A.}\label{a.}
+
+We wrote the following python class, called \lstinline!mimLocator!
+
+\begin{lstlisting}[language=Python]
+#!/usr/bin/env python2.7
+
+import numpy as np
+import sys
+
+class Locator:
+    def __init__(self, p1, p2, p3):
+
+        # initialize points
+        self.p1 = np.array(p1)
+        self.p2 = np.array(p2)
+        self.p3 = np.array(p3)
+
+        # set vectors form p1 to p2 and from p1 to p3
+        self.v12 = self.p2 - self.p1
+        self.v13 = self.p3 - self.p1
+
+        self.v12 = self.v12 / np.linalg.norm(self.v12)
+        # calculate the normal to v12 and v13
+        self.n = np.cross(self.v12, self.v13)
+        self.n = self.n / np.linalg.norm(self.n)
+
+        # calculate corresponding axes of the plane, having p1 as base
+        # axisX = v12 / |v12|
+        self.axisX = self.v12 / np.linalg.norm(self.v12)
+        self.axisY = np.cross(self.n, self.axisX)
+        #self.axisY = self.axisY / np.linalg.norm(self.axisY)
+
+        self.rot = np.matrix([np.array(self.axisX), np.array(self.axisY),
+                              np.array(self.n)])
+
+        self.q = [ 0,0,0,0 ]
+        self.q[3] = np.sqrt(1 + self.rot[0,0] + self.rot[1,1] \
+                + self.rot[2,2]) / 2
+        self.q[0] = (self.rot[2,1] - self.rot[1,2]) / (4 * self.q[3])
+        self.q[1] = (self.rot[0,2] - self.rot[2,0]) / (4 * self.q[3])
+        self.q[2] = (self.rot[1,0] - self.rot[0,1]) / (4 * self.q[3])
+
+        self.scale = np.linalg.norm(self.p2 - self.p1)
+
+    def planeToCartesian(self, x, y):
+        """Takes a point (x,y) on the plane the Locator was initialized for and
+        transforms it into (x,y,z) coordinates located in cartesian space.
+        """
+        p = self.p1 + (x * self.scale * self.axisX) \
+                + (y * self.scale * self.axisY)
+        return p
+
+def main():
+    l = Locator([float(sys.argv[1]), float(sys.argv[2]),
+        float(sys.argv[3])], [float(sys.argv[4]), float(sys.argv[5]),
+        float(sys.argv[6])], [float(sys.argv[7]), float(sys.argv[8]),
+        float(sys.argv[9])])
+    print l.planeToCartesian(sys.argv[10], sys.argv[11])
+
+if __name__ == '__main__':
+    main()
+\end{lstlisting}
+
+In the \lstinline!__init__! function, we initialise the class variables
+and calculate the normal vector, the rotation matrix, the quaternions,
+etc.. The \lstinline!planeToCartesian! function takes a point in
+2d-space and transforms it into the corresponding point on the plane.
+The \lstinline!main! function is to make scripting for later tasks
+easier. It lets the script take three points on the plane as argument,
+from which the corresponding plane is calculated, and then for another
+2d-point, that is handed over as commandline argument as well, returns
+its output if given to \lstinline!planeToCartesian!.
+
+\subsection{C.}\label{c.}
+
+We amended the given code in the indicated area as follows:
+
+\begin{lstlisting}[language=Python]
+#!/usr/bin/env python
+
+# This script should return the x y z and orientation coordinates of the end effector of the left limb.
+# PLEASE ADD YOUR CODE WHERE INDICATED
+# Avoid modifying the rest of the code if not necessary
+#
+# Authors: Stefano Pietrosanti - s.pietrosanti@pgr.reading.ac.uk
+#          Guy Butcher
+
+import rospy
+import baxter_interface
+import numpy
+from geometry_msgs.msg import (
+    PoseStamped,
+    Pose,
+    Point,
+    Quaternion,
+)
+
+print("MIM tutorial: forward kinematics.")
+# Initialising ROS node
+rospy.init_node("SSE_forward_kinematics")
+
+######################  INSERT YOUR CODE HERE
+# Create a "Limb" instance called "left_arm" linked to Baxter's left limb
+
+left_arm = baxter_interface.Limb('left')
+
+# Create a "pose" variable which holds the output of endpoint_pose()
+
+pose = left_arm.endpoint_pose()
+
+######################
+
+
+
+# Return pose
+print("Endpoint coordinates:")
+print("X: " + str(pose['position'].x))
+print("Y: " + str(pose['position'].y))
+print("Z: " + str(pose['position'].z))
+\end{lstlisting}
+
+\section{During The Lab}\label{during-the-lab}
+
+\subsection{A.}\label{a.-1}
+
+\subsection{B.}\label{b.}
+
+\subsection{C.}\label{c.-1}
+
+\subsection{D.}\label{d.}
+
+\subsection{E.}\label{e.}
+
+\subsection{F.}\label{f.}
+
+\subsection{G.}\label{g.}
+
+\subsection{H.}\label{h.}
+
+\subsection{I.}\label{i.}
+
+\subsection{J.}\label{j.}
+
+\subsection{K.}\label{k.}
+
+\subsection{L.}\label{l.}
+
+\end{document}

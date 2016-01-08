@@ -1,0 +1,232 @@
+%%% Special LaTeX headers
+%
+% Remove and edit as desired. Simply serves as an example.
+% Here, reduce excessive use of whitespace a little bit.
+
+\usepackage{lastpage}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{pifont}
+\usepackage{mathrsfs}
+\usepackage{bbm}
+\usepackage{stmaryrd}
+\usepackage{wasysym}
+\usepackage{tikz}
+\usetikzlibrary{shapes, positioning, arrows, automata, fit}
+%\usepackage{wrapfig}
+
+% loop instead of for
+%\SetKwFor{For}{\textbf{loop}}{do}{end loop}
+
+\setlength{\parindent} {0pt}
+\setlength{\parskip}{0.5ex}
+
+\usepackage{charter}
+\usepackage[bitstream-charter]{mathdesign}
+%\usepackage{fancyhdr, hyperref, titlesec, blindtext, color}
+\usepackage{fancyhdr, hyperref, titlesec, color}
+\hypersetup{hidelinks, linktoc=all}
+
+\usepackage{xcolor}
+
+
+\lstset{
+    basicstyle=\ttfamily,
+    numbers=left,
+    keywordstyle=\color[rgb]{0.13,0.29,0.53}\bfseries,
+    stringstyle=\color[rgb]{0.31,0.60,0.02},
+    commentstyle=\color[rgb]{0.56,0.35,0.01}\itshape,
+    numberstyle=\footnotesize,
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color[RGB]{248,248,248},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=true,
+    breakautoindent=true,
+    escapeinside={\%*}{*)},
+    linewidth=40em,
+    basewidth=0.5em,
+}
+
+\newcounter{points}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+\titleformat{\section}[hang]{\fontfamily{qhv}}{\fontfamily{qhv}\bfseries\thesection\hsp\textcolor{gray75}{$\vert$}\hsp}{0pt}{\Large\bfseries}
+
+\newcommand{\uebkopfzeile}[4]{
+	\begin{center}
+		\begin{bf}
+			\usefont{T1}{qhv}{b}{n}
+			#1 \hfill #2\\
+			#3 \hfill #4\\
+		\end{bf}
+	\end{center}  
+}
+
+\newcommand{\uebtitel}[2]{
+	\begin{center}
+		\begin{bf}
+			\usefont{T1}{qhv}{b}{n}
+			\bigskip
+			{\LARGE #1}\\
+		\end{bf}
+		\textit{\rmfamily(Deadline: #2)}
+	\end{center}
+}
+
+\makeatletter
+\newcommand{\solution}{\@ifstar{\uebungsblatt@zsolution}{\uebungsblatt@solution}}
+\newcommand{\uebungsblatt@zsolution}[3]{%
+	\begin{center}
+		\begin{bf}
+			#1: {\it #2}\hfill [ \quad ] of #3 Points\\
+		\end{bf}
+	\end{center}
+}
+\newcommand{\uebungsblatt@solution}[3]{\begin{center}
+		\begin{bf}
+			{\usefont{T1}{qhv}{b}{n}Solution of Exercise #1:} 
+			\parbox[t]{,4\textwidth}{{\it #2}}\hfill{\usefont{T1}{qhv}{b}{n} [ 
+				\quad ] of #3 Points}\\
+		\end{bf}
+	\end{center}
+	\addtocounter{points}{#3}
+}
+\makeatother
+
+% sets
+\newcommand*{\F}{\mathbb F}
+\newcommand*{\N}{\mathbb N}
+\newcommand*{\Z}{\mathbb Z}
+\newcommand*{\Q}{\mathbb Q}
+\newcommand*{\R}{\mathbb R}
+\renewcommand*{\C}{\mathbb C}
+\newcommand*{\Pow}{\mathcal P}
+\newcommand*{\K}{\mathbb K}
+
+% operators
+\newcommand*{\et}{\mathbin{\&}}
+\DeclareMathOperator{\com}{com}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\rp}{Re}
+\DeclareMathOperator{\ip}{Im}
+\DeclareMathOperator{\lin}{span}
+\DeclareMathOperator{\row}{row}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\ve}{vec}
+%\DeclareMathOperator{\co}{coord}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\sgn}{sgn}
+%\DeclareMathOperator{\det}{det}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Eig}{Eig}
+\DeclareMathOperator{\Abb}{Abb}
+\DeclareMathOperator{\Bil}{Bil}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\ord}{ord}
+
+\renewcommand\over[2]{\genfrac{}{}{0pt}{}{#1}{#2}}
+
+% symbols
+\renewcommand{\i}{\mathring{\imath}}
+\renewcommand{\j}{\mathring{\jmath}}
+\newcommand*{\ph}{\varphi}
+\newcommand*{\ps}{\psi}
+\newcommand*{\la}{\lambda}
+\newcommand*{\e}{\varepsilon}
+\renewcommand*{\a}{\alpha}
+\renewcommand*{\b}{\beta}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\rh}{\varrho}
+\newcommand{\de}{\delta}
+\newcommand{\Ph}{\Phi}
+\newcommand{\ze}{\zeta}
+\newcommand{\ch}{\chi}
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\idleq}{\trianglelefteq}
+
+\newcommand*{\skal}[1]{\left\langle #1\right\rangle}
+
+% changes \qed to a filled square
+\renewcommand*{\qedsymbol}{\ensuremath{\blacksquare}}
+% set mathcal as it is vanilla, I like it more like that than the rsf thingy
+\SetMathAlphabet{\mathcal}{normal}{OMS}{cmsy}{m}{bf}
+
+% strucutres
+\makeatletter
+\renewcommand*{\vec}{\@ifstar{\cscallr@ovec}{\cscallr@uvec}}
+\newcommand*{\cscallr@ovec}[1]{\overrightarrow{#1}}
+\newcommand*{\cscallr@uvec}[1]{\text{vec}_{\underline{#1}}}
+\makeatother
+\newcommand*{\coord}[1]{\text{coord}_{\underline{#1}}}
+\newcommand*\otilde[1]{\widetilde{#1}}
+\renewcommand*{\o}[1]{\overline{#1}}
+\makeatletter
+% \vor for short form, \vor* for long form
+\newcommand*{\vor}{\@ifstar{\cscallr@lvor}{\cscallr@svor}}
+\newcommand*{\cscallr@svor}{\textbf{Vor.:} }
+\newcommand*{\cscallr@lvor}{\textbf{Voraussetzung:} }
+% \beh, see \vor
+\newcommand*{\beh}{\@ifstar{\cscallr@lbeh}{\cscallr@sbeh}}
+\newcommand*{\cscallr@sbeh}{\textbf{Beh.:} }
+\newcommand*{\cscallr@lbeh}{\textbf{Behauptung:} }
+% \bew, see \vor	
+\newcommand*{\bew}{\@ifstar{\cscallr@lbew}{\cscallr@sbew}}
+\newcommand*{\cscallr@sbew}{\textit{Bew.:} }
+\newcommand*{\cscallr@lbew}{\textit{Beweis:} }
+\makeatother
+
+\newcommand*{\zz}{Zu zeigen: }
+\makeatletter
+\newcommand{\arr}{\@ifstar{\cscallr@larr}{\cscallr@arr}}
+\newcommand\cscallr@larr[1]{\left\{\begin{array}{c} #1 \end{array}\right.}
+\newcommand\cscallr@arr[1]{\left\{\begin{array}{c} #1 \end{array}\right\}}
+\makeatother
+\renewcommand*\u[1]{\underset{#1}}
+\newcommand\lr[1]{\left\{ #1 \right\}}
+%#1.2 ?
+% links to \label{key}
+\newcommand*\rref[1]{[$\rightarrow$\hyperref[#1]{#1}]} % with brackets
+\newcommand*\bref[2]{[$\rightarrow$\hyperref[#1]{#1},$\rightarrow$\hyperref[#2]{#2}]}
+% dual, with brackets
+\newcommand*\hrref[1]{\hyperref[#1]{#1}} % without brackets, for refs to (a)
+%for example
+% for normal column vectors use cvec, for small ones (preferably in text) use
+%cvec*
+\makeatletter
+\newcommand{\cvec}{\@ifstar{\cscallr@scvec}{\cscallr@cvec}}
+\newcommand{\cscallr@scvec}[1]{%
+	\text{$\left(\begin{smallmatrix}#1\end{smallmatrix}\right)$}
+}
+\newcommand{\cscallr@cvec}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\makeatother
+\newcommand{\dvec}[1]{\begin{vmatrix}#1\end{vmatrix}}
+\newcommand{\vvec}[2]{ \left(\begin{array}{#1}#2\end{array}\right) }
+\newcommand*{\smallfrac}[2]{\frac{_{#1}}{^{#2}}}
+\newcommand{\bvec}[1]{\begin{bmatrix}#1\end{bmatrix}}
+
+\fancyhead[R]{Page: \thepage \hspace{0.5ex} of \pageref{LastPage}}
+\fancyhead[L]{Joe O'Grady, Thomas Schmidt}
+
+\fancypagestyle{firststyle}
+{
+   \fancyhf{}
+\fancyhead[R]{Page: \thepage \hspace{0.5ex} of \pageref{LastPage}}
+\fancyhead[L]{Joe O'Grady, Thomas Schmidt}
+}
+%Kopfzeile auf jeder Seite mit eurem Namen und Seitenzahl
+
+\thispagestyle{firststyle}
